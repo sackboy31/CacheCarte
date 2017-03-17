@@ -20,20 +20,40 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="69dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/button_cancel_parties"
+    <View android:id="@+id/fakeView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+
+    <ListView
+        android:id="@+id/list_detected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/progressBar2"
+        android:layout_above="@id/button_cancel_parties"
+        android:layout_alignEnd="@+id/fakeView"/>
+
+    <ListView
+        android:id="@+id/list_paired"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/progressBar2"
+        android:layout_above="@id/button_cancel_parties"
+        android:layout_alignStart="@+id/fakeView"/>
+
+    <TextView
+        android:text="Paired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickCancel"
-        android:text="@string/button_cancel_wait"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp" />
+        android:layout_alignTop="@+id/progressBar2"
+        android:layout_toEndOf="@+id/button_cancel_parties"
+        android:layout_marginStart="12dp"
+        android:id="@+id/textView4" />
 
     <Button
         android:text="Jouer contre l'IA"
@@ -44,4 +64,15 @@
         android:layout_above="@+id/button_cancel_parties"
         android:layout_centerHorizontal="true"
         android:onClick="onClickIA" />
+
+
+
+    <TextView
+        android:text="Detected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/progressBar2"
+        android:layout_toStartOf="@+id/textView2" />
+
 </RelativeLayout>
