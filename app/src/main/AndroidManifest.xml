@@ -16,6 +16,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlateauCarteActivity"></activity>
+        <activity android:name=".NewOrJoinGame" />
+        <activity android:name=".AttenteAdversaireActivity" />
+        <activity android:name=".RechercheParties" />
+        <activity android:name=".FinDePartie"></activity>
     </application>
 
 </manifest>
