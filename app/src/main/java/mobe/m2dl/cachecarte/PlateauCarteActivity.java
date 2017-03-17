@@ -1,6 +1,7 @@
 package mobe.m2dl.cachecarte;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothDevice;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +28,14 @@ public class PlateauCarteActivity extends Activity {
 
     private Button masquerButton, passerButton;
 
+    private BluetoothDevice device ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plateau_carte);
 
+        device = Propriété.getDevice();
         rang1 = (LinearLayout) findViewById(R.id.rang1);
         rang2 = (LinearLayout) findViewById(R.id.rang2);
         masquerButton = (Button) findViewById(R.id.button_cartes);

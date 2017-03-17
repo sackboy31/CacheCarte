@@ -1,6 +1,7 @@
 package mobe.m2dl.cachecarte;
 
 import android.Manifest;
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -24,6 +25,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
 
+import static android.bluetooth.BluetoothDevice.BOND_BONDED;
+
 public class RechercheParties extends AppCompatActivity {
 
 
@@ -41,8 +44,6 @@ public class RechercheParties extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter = null;
 
     ArrayAdapter<String> pairedAdapter,detectedAdapter;
-
-
 
     BluetoothDevice bdDevice;
 
@@ -91,7 +92,7 @@ public class RechercheParties extends AppCompatActivity {
 
         Log.i("Log", "in the start searching method");
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
         intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
@@ -141,17 +142,22 @@ public class RechercheParties extends AppCompatActivity {
     public void onClickCancel(View view) {
         finish();
     }
-    private void getPairedDevices() {
+
+    private boolean isBonded( ) {
         Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
+        boolean isbonded = false;
         if(pairedDevice.size()>0)
         {
             for(BluetoothDevice device : pairedDevice)
             {
-                arrayListpaired.add(device.getName()+"\n"+device.getAddress());
-                arrayListPairedBluetoothDevices.add(device);
+                if(device.getAddress().equals(bdDevice.getAddress())){
+                    isbonded = true;
+                }
             }
         }
-        pairedAdapter.notifyDataSetChanged();
+
+        return isbonded;
+
     }
 
     class ListItemDetected implements AdapterView.OnItemClickListener
@@ -163,18 +169,29 @@ public class RechercheParties extends AppCompatActivity {
             bluetoothAdapter.cancelDiscovery();
             bdDevice = arrayListBluetoothDevices.get(position);
             Log.i("Log", "The dvice : "+bdDevice.toString());
-            Boolean isBonded = false;
-            try {
-                isBonded = createBond(bdDevice);
-                if(isBonded)
-                {
-                    getPairedDevices();
-                    pairedAdapter.notifyDataSetChanged();
+            Boolean isBonded = isBonded();
+            if(!isBonded){
+
+                try {
+                    isBonded = createBond();
+                    if(isBonded)
+                    {
+                        beginPartie();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }//connect(bdDevice);
-            Log.i("Log", "The bond is created: "+isBonded);
+            }else{
+                beginPartie();
+            }
+        }
+    }
+
+    public void beginPartie( ){
+        if(isBonded()){
+            Propriété.setDevice(bdDevice);
+            Intent intentJoinGame = new Intent(this, PlateauCarteActivity.class);
+            startActivity(intentJoinGame);
         }
     }
 
@@ -187,13 +204,12 @@ public class RechercheParties extends AppCompatActivity {
             bluetoothAdapter.cancelDiscovery();
             bdDevice = arrayListBluetoothDevices.get(position);
             Log.i("Log", "The dvice : "+bdDevice.toString());
-            Boolean isBonded = false;
+            Boolean isBonded = isBonded();
             try {
-                isBonded = createBond(bdDevice);
+                isBonded = createBond();
                 if(isBonded)
                 {
-                    getPairedDevices();
-                    pairedAdapter.notifyDataSetChanged();
+                    beginPartie();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -203,14 +219,15 @@ public class RechercheParties extends AppCompatActivity {
     }
 
 
-    public boolean createBond(BluetoothDevice btDevice)
+    public boolean createBond( )
             throws Exception
     {
         Class class1 = Class.forName("android.bluetooth.BluetoothDevice");
         Method createBondMethod = class1.getMethod("createBond");
-        Boolean returnValue = (Boolean) createBondMethod.invoke(btDevice);
+        Boolean returnValue = (Boolean) createBondMethod.invoke(bdDevice);
         return returnValue.booleanValue();
     }
+
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
@@ -250,6 +267,7 @@ public class RechercheParties extends AppCompatActivity {
                     case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
                         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar2);
                         progressBar.setVisibility(View.INVISIBLE);
+                        pairedAdapter.notifyDataSetChanged();
                         break;
                 }
 
