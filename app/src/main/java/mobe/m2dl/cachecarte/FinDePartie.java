@@ -12,12 +12,21 @@ public class FinDePartie extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fin_de_partie);
+
+
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int score = extras.getInt("score");
+
+        if(extras != null) {
+
+            String score = extras.getString("score");
+            String resultat = extras.getString("statut");
             TextView textViewScore = (TextView)findViewById(R.id.text_value_score);
+            TextView textViewStatut = (TextView) findViewById(R.id.text_result);
             textViewScore.setText(score);
+            textViewStatut.setText(resultat);
         }
+
+
     }
 
     public void onClickBackMenu(View view){

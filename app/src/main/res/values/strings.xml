@@ -10,7 +10,7 @@
     <string name="button_cancel_wait">Cancel</string>
     <string name="text_wait_opponent">Attente d\'adversaire</string>
     <string name="text_wait_games">Recherche de partie en cours</string>
-    <string name="you_have">Vous avez</string>
+    <string name="you_have">Statut</string>
     <string name="text_score">Score</string>
     <string name="button_back_menu">Back to menu</string>
 </resources>

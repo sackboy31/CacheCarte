@@ -10,16 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mobe.m2dl.cachecarte.PlateauCarteActivity">
 
-    <Button
-        android:text="Passer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:id="@+id/button_passer"
-        android:layout_marginStart="36dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onClickPasser" />
 
     <Button
         android:text="Cacher cartes"
@@ -57,4 +47,14 @@
         android:layout_alignParentStart="true">
 
     </LinearLayout>
+
+    <Button
+        android:text="Passer tour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:id="@+id/button_passer"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickPasserTour" />
 </RelativeLayout>

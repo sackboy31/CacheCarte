@@ -34,4 +34,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="42dp" />
+
+    <Button
+        android:text="Jouer contre l'IA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:id="@+id/button_ia"
+        android:layout_above="@+id/button_cancel_parties"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickIA" />
 </RelativeLayout>

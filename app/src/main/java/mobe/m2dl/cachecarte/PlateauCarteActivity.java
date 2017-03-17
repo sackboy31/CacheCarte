@@ -1,6 +1,7 @@
 package mobe.m2dl.cachecarte;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class PlateauCarteActivity extends Activity {
 
@@ -23,7 +25,9 @@ public class PlateauCarteActivity extends Activity {
 
     private LinkedList<Carte> cartes = new LinkedList<>();
 
-    private boolean tourJoueur;     // Le joueur peut JOUER
+    private boolean tourJoueur;     // Le joueur peut JOUER ou ATTENDS SON TOUR
+    private boolean passerAdversaire = false;  // Récupère l'action PASSER de l'adversaire
+    private int pointsAdversaire;
 
     private Button masquerButton, passerButton;
 
@@ -67,17 +71,55 @@ public class PlateauCarteActivity extends Activity {
                 rang2.addView(image);
             }
         }
+        masquerButton.setEnabled(false);
+
+
+        // Si IA, on récupère PASSER
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null && extras.getString("Passer")!= null){
+            passerAdversaire = true;
+            scoreIA();
+            Toast toast2 = Toast.makeText(this, String.valueOf(pointsAdversaire), Toast.LENGTH_LONG);
+            toast2.show();
+        }
+
     }
 
-    public void onClickPasser(View view){
+    public void onClickPasserTour(View view){
         // Fin de tour, partie finie pour le joueur.
         masquerButton.setEnabled(false);
 
-        // TODO Tester si le joueur à aussi envoyer un PASSER
+
+            // Si on a utilisé la connexion
+            // TODO Tester si le joueur a aussi envoyer un PASSER
 
 
+            if(passerAdversaire){
+                // FIN DE PARTIE POUR LES DEUX JOUEURS
+                // Calculer score du joueur et l'envoyer à l'autre joueur
+                int pointsJoueur = calculCartesSelectionnee();
+                // TODO Récupérer scoreSelection autre joueur
+                //int pointsAdversaire = ...
+
+
+                Intent intentNewJoinGame = new Intent(PlateauCarteActivity.this, FinDePartie.class);
+                // Envoie à la vue suivante le score et le statut
+                if(pointsJoueur > pointsAdversaire){
+                    intentNewJoinGame.putExtra("score", String.valueOf(scoreJoueur()));
+                    intentNewJoinGame.putExtra("statut", "GAGNANT");
+                } else if (pointsJoueur == pointsAdversaire){
+                    intentNewJoinGame.putExtra("score", String.valueOf(scoreJoueur()));
+                    intentNewJoinGame.putExtra("statut", "EGALITE");
+                } else {
+                    intentNewJoinGame.putExtra("score", String.valueOf(0));
+                    intentNewJoinGame.putExtra("statut", "PERDANT");
+                }
+                startActivity(intentNewJoinGame);
+            }
         //TODO Envoie passer en bluetooth
     }
+
 
     public void onClickMasquerAfficher(View view){
 
@@ -115,6 +157,12 @@ public class PlateauCarteActivity extends Activity {
                 masquerButton.setEnabled(false);
             } else {
                 masquerButton.setEnabled(true);
+            }
+
+            if(nombreCartesSelectionnees > 0 && carteSelectionnee < 2 && nombreCartesSelectionnees < cartes.size()){
+                masquerButton.setEnabled(true);
+            } else {
+                masquerButton.setEnabled(false);
             }
 
             if (carteSelectionnee > 0){
@@ -160,6 +208,7 @@ public class PlateauCarteActivity extends Activity {
 
         }
         masquerCartes = true;
+        masquerButton.setText("Montrer carte");
         // TODO Send fin de tour
     }
 
@@ -187,6 +236,52 @@ public class PlateauCarteActivity extends Activity {
 
             carteSelectionnee = 0;
             passerButton.setEnabled(true);
+            masquerButton.setText("Cacher carte");
+            masquerButton.setEnabled(false);
+        }
+    }
+
+    private int calculCartesSelectionnee(){
+        int sommeSelection = 0;
+        for(int i = 0; i < cartes.size(); i++){
+            Carte carteCourante = cartes.get(i);
+            if(carteCourante.isSelection()){
+                sommeSelection += carteCourante.getNumeroCarte();
+            }
+        }
+        return sommeSelection;
+    }
+
+    private int scoreJoueur(){
+        int score = 0;
+        for(int i = 0; i < cartes.size(); i++){
+            Carte carteCourante = cartes.get(i);
+            if(!carteCourante.isSelection()){
+                score += carteCourante.getNumeroCarte();
+            }
+        }
+        return score;
+    }
+
+    private LinkedList<Integer> creationAléatoireCartesIAJoueur(){
+        listeNumero.clear();
+        for(int i = 0; i < NB_CARTES; i++){
+            int numero;
+            do {
+                numero = new Random().nextInt(10-1 +1) + 1;
+            } while (listeNumero.contains(numero));
+            listeNumero.add(numero);
+        }
+        return listeNumero;
+    }
+
+    private void scoreIA(){
+        for(int i = 0; i < NB_CARTES-1; i++){
+            int numero;
+            do {
+                numero = new Random().nextInt(10-1 +1) + 1;
+            } while (listeNumero.contains(numero));
+            pointsAdversaire += numero;
         }
     }
 }
