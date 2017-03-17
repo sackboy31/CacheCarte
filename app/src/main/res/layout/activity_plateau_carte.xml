@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_plateau_carte"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="mobe.m2dl.cachecarte.PlateauCarteActivity">
+
+    <Button
+        android:text="Passer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:id="@+id/button_passer"
+        android:layout_marginStart="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickPasser" />
+
+    <Button
+        android:text="Cacher cartes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:id="@+id/button_cartes"
+        android:layout_alignBaseline="@+id/button_passer"
+        android:layout_alignBottom="@+id/button_passer"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickMasquerAfficher" />
+
+    <LinearLayout
+        android:id="@+id/rang1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_passer"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rang2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rang1"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
+
+    </LinearLayout>
+</RelativeLayout>
