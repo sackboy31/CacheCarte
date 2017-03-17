@@ -15,6 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewOrJoinGame" />
+        <activity android:name=".AttenteAdversaireActivity" />
+        <activity android:name=".RechercheParties"></activity>
     </application>
 
 </manifest>

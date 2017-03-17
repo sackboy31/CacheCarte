@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CacheCarte</string>
+    <string name="button_game">Game</string>
+    <string name="button_new_game">New Game</string>
+    <string name="button_join_game">Join Game</string>
+    <string name="button_cancel_wait">Cancel</string>
+    <string name="text_wait_opponent">Attente d\'adversaire</string>
+    <string name="text_wait_games">Recherche de partie en cours</string>
 </resources>

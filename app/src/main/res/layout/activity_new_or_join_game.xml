@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/new_or_join_game"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mobe.m2dl.cachecarte.NewOrJoinGame">
+
+        <Button
+            android:id="@+id/button_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="72dp"
+            android:onClick="onClickNewGame"
+            android:text="@string/button_new_game" />
+
+        <Button
+            android:id="@+id/button_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/button_new"
+            android:layout_below="@+id/button_new"
+            android:layout_marginTop="75dp"
+            android:onClick="onClickJoinGame"
+            android:text="@string/button_join_game" />
+</RelativeLayout>
