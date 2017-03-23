@@ -28,7 +28,7 @@ import java.util.Set;
 public class RechercheParties extends AppCompatActivity {
 
 
-
+    /*
 
     ListView listViewDetected;
     ListView listViewPaired;
@@ -49,7 +49,7 @@ public class RechercheParties extends AppCompatActivity {
 
     ListItemDetected listItemDetected;
     ListItemPaired listItemPaired;
-
+    */
 
 
     @Override
@@ -57,6 +57,7 @@ public class RechercheParties extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recherche_parties);
 
+        /*
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         arrayListdetected = new ArrayList<String>();
         arrayListpaired = new ArrayList<String>();
@@ -69,15 +70,15 @@ public class RechercheParties extends AppCompatActivity {
         listViewDetected = (ListView) findViewById(R.id.list_detected);
         listViewDetected.setAdapter(detectedAdapter);
 
-        listViewPaired = (ListView) findViewById(R.id.list_paired);
-        listViewPaired.setAdapter(pairedAdapter);
 
         arrayListBluetoothDevices = new ArrayList<>();
         arrayListPairedBluetoothDevices = new ArrayList<>();
         listItemDetected = new ListItemDetected();
         listItemPaired = new ListItemPaired();
+        */
     }
 
+    /*
     @Override
     protected void onStart() {
 
@@ -139,6 +140,8 @@ public class RechercheParties extends AppCompatActivity {
 
     }
 
+   */
+
     public void onClickCancel(View view) {
         finish();
     }
@@ -148,6 +151,8 @@ public class RechercheParties extends AppCompatActivity {
         intent.putExtra("Passer", "true");
         startActivity(intent);
     }
+
+    /*
     private void getPairedDevices() {
         Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
         if(pairedDevice.size()>0)
@@ -265,4 +270,5 @@ public class RechercheParties extends AppCompatActivity {
 
 
     };
+    */
 }

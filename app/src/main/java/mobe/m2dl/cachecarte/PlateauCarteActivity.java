@@ -3,6 +3,10 @@ package mobe.m2dl.cachecarte;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -85,6 +89,7 @@ public class PlateauCarteActivity extends Activity {
         }
 
     }
+
 
     public void onClickPasserTour(View view){
         // Fin de tour, partie finie pour le joueur.
